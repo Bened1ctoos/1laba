@@ -5,6 +5,7 @@
  */
 package javafxapplication7;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -74,7 +75,10 @@ public class JavaFXApplication7 extends Application {
                     meal = in2.nextLine();
                     System.out.print("input amount of meal = ");
                     amount = in.nextInt();
-                    
+                    ResultSet rs = Connect.statmt.executeQuery("SELECT * FROM Cooker WHERE meal = '" + meal +"'");
+                    if(!rs.next()){
+                        System.out.println("cannot find menu like that");
+                    }
                     Order ord = new Order(amount, meal);
                     ord.MakeOrder();
                     break;
