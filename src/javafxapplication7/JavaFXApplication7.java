@@ -57,6 +57,8 @@ public class JavaFXApplication7 extends Application {
         System.out.println("1 -> Watch all clients in db;");
         System.out.println("2 -> Watch all cookers in db;");
         System.out.println("3 -> Watch menu");
+        System.out.println("4 -> Make an order");
+        System.out.println("5 -> exit");
         
         for(int i = 0; i<100; i++){
         
