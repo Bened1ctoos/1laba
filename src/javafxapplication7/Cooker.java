@@ -35,20 +35,6 @@ public class Cooker {
         this.menu = menu;
     }
     
-    public void SelectCooker(){
-    try{
-            //Connect conn = new Connect();
-            //conn.GetConn();
-            ResultSet rs = Connect.statmt.executeQuery("SELECT * FROM Cooker");
-            
-            System.out.println("Cookers:"); 
-            while(rs.next()){
-                   System.out.println(rs.getString("id") + "     " + rs.getString("name") + "     " + rs.getString("meal") + "     " + rs.getString("orders"));
-            }
-            
-        }
-        catch(SQLException ex){}
-        //catch(ClassNotFoundException ex){}
-    }
+    
     
 }

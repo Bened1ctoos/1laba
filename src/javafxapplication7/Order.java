@@ -55,16 +55,7 @@ public class Order {
         //catch(ClassNotFoundException ex){}
     }
     
-    public void WatchMenu() {
-           try{  ResultSet rs = Connect.statmt.executeQuery("SELECT meal FROM Cooker");
-            
-            System.out.println("Cookers:"); 
-            while(rs.next()){
-                   System.out.println(rs.getString("meal"));
-            }
-           }
-           catch(SQLException ex){}
-    }
+
     
      
     

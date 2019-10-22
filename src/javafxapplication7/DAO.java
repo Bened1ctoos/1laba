@@ -11,7 +11,8 @@ package javafxapplication7;
  */
 public interface DAO<T> {
     boolean create(T obj);
-    boolean update(T obj1, T obj2);
-    boolean search();
-    boolean delete(T obj);
+    void update(String tab, String id, String clmn, String val);
+    void delete(String tab);
+    void SelectCooker();
+    void SelectClient();
 }

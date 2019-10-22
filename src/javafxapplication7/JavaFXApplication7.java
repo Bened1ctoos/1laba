@@ -26,8 +26,8 @@ public class JavaFXApplication7 extends Application {
     
     @Override
     public void start(Stage primaryStage) throws SQLException {
-        DAOClient dao = new DAOClient();
-        Client client = new Client();
+        DAO_SQL dao = new DAO_SQL();
+        Table client = new Table();
         Cooker cooker = new Cooker();
         Order order = new Order();
         int amount;
@@ -51,6 +51,7 @@ public class JavaFXApplication7 extends Application {
         
         Scanner in = new Scanner(System.in);
         Scanner in2 = new Scanner(System.in);
+        Scanner in3 = new Scanner(System.in);
         
         int choice;
         int finish = 0;
@@ -60,14 +61,16 @@ public class JavaFXApplication7 extends Application {
         System.out.println("3 -> Watch menu");
         System.out.println("4 -> Make an order");
         System.out.println("5 -> exit");
+        System.out.println("6 -> Delete or clean up a table");
+        System.out.println("7 -> Update the database");
         
         for(int i = 0; i<100; i++){
         
         choice = in.nextInt();
         switch(choice){
-            case 1: client.SelectClient(); break;
-            case 2: cooker.SelectCooker(); break;
-            case 3: order.WatchMenu();
+            case 1: dao.SelectClient(); break;
+            case 2: dao.SelectCooker(); break;
+            case 3: dao.WatchMenu();
                     break;
             case 4: 
                 try {
@@ -82,14 +85,57 @@ public class JavaFXApplication7 extends Application {
                     Order ord = new Order(amount, meal);
                     ord.MakeOrder();
                     break;
-                    } catch (InputMismatchException e) { 
-                        in.next();
-                    }
+                    } catch (Exception e) {}
             case 5: 
                     finish = 1; break;
-            
-        }
-        if(finish>0) break;
+         case 6: 
+             try{
+            System.out.println("1 -> Delete a table");
+            System.out.println("2 -> Clean up a table");
+            int choice2 = in.nextInt();
+        
+            switch(choice2){
+                case 1:
+                    String table;
+                    table = in2.nextLine();
+                    ResultSet rs = Connect.statmt.executeQuery("SELECT * FROM " + table);
+                    if(!rs.next()){
+                        System.out.println("cannot find table like that");
+                    }
+                    dao.delete(table); break;
+                   
+
+                case 2: 
+                    String table2;
+                    table2 = in3.nextLine();
+                    ResultSet rs2 = Connect.statmt.executeQuery("SELECT * FROM " + table2);
+                    if(!rs2.next()){
+                        System.out.println("cannot find table like that");
+                    }
+                    dao.delete(table2); break;
+            }
+                   
+        }   catch(Exception e){} break;
+         case 7:
+            try{ 
+             System.out.print("Input the name of the table you want to update: ");
+             String tab = in3.nextLine();
+             ResultSet rs = Connect.statmt.executeQuery("SELECT * FROM " + tab);
+                    if(!rs.next()){
+                        System.out.println("cannot find table like that"); 
+                    }
+             System.out.print("\nInput id of the row: ");
+             String id = in3.nextLine();
+             System.out.print("\nInput the name of the column you want to change: ");
+             String clmn = in3.nextLine();
+             System.out.print("\nInput the value you want to input into the table");
+             String value = in3.nextLine();
+             
+             dao.update(tab, id, clmn, value); break;
+            }
+            catch(Exception e){}
+       }
+         if(finish>0) break;
         }
     }
 
